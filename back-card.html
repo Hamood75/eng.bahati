@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahati Bakari Zuberi - Professional Business Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .card-container {
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .business-card {
+      width: 400px;
+      height: 240px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease-in-out;
+      transform-origin: 50% 50%;
+      margin: 0 auto;
+    }
+
+    .card-side {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 240px;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      transform-origin: 50% 50%;
+    }
+
+    .card-front {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transform: rotateY(0deg);
+    }
+
+    .card-back {
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+      color: #1e293b;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      border: 2px solid #e2e8f0;
+    }
+
+    /* Front Card Styles */
+    .front-header {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 16px 24px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .front-header::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/200px-Coat_of_arms_of_Tanzania.svg.png') no-repeat center center;
+      background-size: 60px;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.5px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .position {
+      font-size: 11px;
+      font-weight: 500;
+      opacity: 0.9;
+      line-height: 1.3;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .department {
+      font-size: 12px;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-top: 4px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .front-content {
+      flex: 1;
+      padding: 16px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-top: -4px;
+    }
+
+    .contact-highlight {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .contact-highlight i {
+      width: 20px;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .email-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      line-height: 1.2;
+    }
+
+    .email-primary {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .email-secondary {
+      font-weight: 400;
+      font-size: 11.5px;
+      opacity: 0.85;
+      font-style: italic;
+      line-height: 1.2;
+    }
+
+    .motto {
+      margin-top: 16px;
+      font-style: italic;
+      font-size: 11px;
+      opacity: 0.8;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 16px;
+    }
+
+    /* Back Card Styles */
+    .back-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 16px 24px;
+      position: relative;
+    }
+
+    .back-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/200px-Coat_of_arms_of_Tanzania.svg.png') no-repeat center center;
+      background-size: 45px;
+      opacity: 0.2;
+    }
+
+    .back-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .back-content {
+      flex: 1;
+      padding: 20px 24px;
+    }
+
+    .contact-section {
+      margin-bottom: 16px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .contact-row i {
+      width: 16px;
+      color: #3b82f6;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .contact-row .label {
+      font-weight: 600;
+      color: #374151;
+      min-width: 60px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-row .value {
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    .footer-branding {
+      text-align: center;
+      padding: 12px 24px;
+      background: rgba(30, 58, 138, 0.05);
+      border-top: 1px solid #e2e8f0;
+      font-size: 9px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* Download Interface */
+    .download-interface {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      z-index: 1001;
+      justify-content: center;
+      position: relative;
+    }
+
+    .control-btn {
+      padding: 12px 16px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1002;
+      pointer-events: auto;
+    }
+
+    .control-btn:hover {
+      background: #1e3a8a;
+      color: white;
+      border-color: #1e3a8a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+    }
+
+    .flip-btn {
+      background: #f59e0b;
+      color: white;
+      border-color: #f59e0b;
+    }
+
+    .flip-btn:hover {
+      background: #d97706;
+      border-color: #d97706;
+    }
+
+    #contact-btn:hover {
+      background: #059669 !important;
+      border-color: #059669 !important;
+    }
+
+    .business-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Status message */
+    .status-message {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .status-message.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      .business-card {
+        width: 350px;
+        height: 210px;
+      }
+
+      .card-side {
+        width: 350px;
+        height: 210px;
+      }
+      
+      .control-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div id="business-card" class="business-card">
+      <!-- Front Side -->
+      <div class="card-side card-front">
+        <div class="front-header">
+          <h1 class="name">Bahati Bakari Zuberi</h1>
+          <p class="position">Acting Assistant Director Research Innovation and ICT skills development</p>
+          <p class="department">Ministry of Communication and Information Technology</p>
+        </div>
+        <div class="front-content">
+          <div class="contact-highlight">
+            <i class="fas fa-envelope"></i>
+            <div class="email-group">
+              <span class="email-primary">bahati.zuberi@mawasiliano.go.tz</span>
+            </div>
+          </div>
+          <div class="contact-highlight">
+            <i class="fas fa-phone"></i>
+            <span>+255 655-349625 / bahatizuberi@gmail.com</span>
+          </div>
+          <div class="contact-highlight">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Dodoma, Tanzania</span>
+          </div>
+          <div class="motto">
+            "Leading Tanzania's Digital Transformation with Excellence and Innovation"
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Side -->
+      <div class="card-side card-back">
+        <div class="back-header">
+          <h2 class="back-name">Contact Information</h2>
+        </div>
+        <div class="back-content">
+          <div class="contact-section">
+            <div class="contact-row">
+              <i class="fas fa-envelope"></i>
+              <span class="label">Email</span>
+              <span class="value">bahati.zuberi@mawasiliano.go.tz</span>
+            </div>
+            <div class="contact-row">
+              <i class="fas fa-phone"></i>
+              <span class="label">Phone</span>
+              <span class="value">+255 655-349625</span>
+            </div>
+            <div class="contact-row">
+              <i class="fas fa-mobile-alt"></i>
+              <span class="label">Personal</span>
+              <span class="value">bahatizuberi@gmail.com</span>
+            </div>
+            <div class="contact-row">
+              <i class="fas fa-map-marker-alt"></i>
+              <span class="label">Address</span>
+              <span class="value">Mtumba Government City</span>
+            </div>
+            <div class="contact-row">
+              <i class="fas fa-building"></i>
+              <span class="label">Street</span>
+              <span class="value">9 Mawasiliano Street</span>
+            </div>
+            <div class="contact-row">
+              <i class="fas fa-mail-bulk"></i>
+              <span class="label">P.O. Box</span>
+              <span class="value">677, 40470 Dodoma, Tanzania</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-branding">
+          UNITED REPUBLIC OF TANZANIA • MINISTRY OF COMMUNICATION AND INFORMATION TECHNOLOGY
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="download-interface">
+    <button type="button" class="control-btn flip-btn" id="flip-btn">
+      <i class="fas fa-sync-alt"></i>
+      Flip Card
+    </button>
+    <button type="button" class="control-btn" id="download-btn">
+      <i class="fas fa-image"></i>
+      Download Card
+    </button>
+    <button type="button" class="control-btn" id="contact-btn" style="background: #10b981; border-color: #10b981;">
+      <i class="fas fa-address-book"></i>
+      Save Contact
+    </button>
+  </div>
+
+  <div id="status-message" class="status-message">
+    Business card downloaded successfully!
+  </div>
+
+  <script>
+    function flipCard() {
+      const card = document.getElementById('business-card');
+      card.classList.toggle('flipped');
+    }
+
+    function showStatus(message) {
+      const statusEl = document.getElementById('status-message');
+      statusEl.textContent = message;
+      statusEl.classList.add('show');
+      setTimeout(() => {
+        statusEl.classList.remove('show');
+      }, 3000);
+    }
+
+    function downloadCard() {
+      const card = document.getElementById('business-card');
+      const isFlipped = card.classList.contains('flipped');
+      
+      // Get individual card sides directly to avoid transform issues
+      const frontCard = document.querySelector('.card-front');
+      const backCard = document.querySelector('.card-back');
+      
+      // Temporarily remove transforms and show cards properly
+      card.style.transform = 'none';
+      frontCard.style.transform = 'rotateY(0deg)';
+      backCard.style.transform = 'rotateY(0deg)';
+      frontCard.style.display = 'flex';
+      backCard.style.display = 'none';
+      
+      // Wait a moment for styles to apply
+      setTimeout(() => {
+        // Capture front side
+        html2canvas(frontCard, {
+          useCORS: true,
+          allowTaint: true,
+          scale: 3, // Higher resolution
+          backgroundColor: null,
+          logging: false,
+          width: 400,
+          height: 240
+        }).then(frontCanvas => {
+          // Now show back card
+          frontCard.style.display = 'none';
+          backCard.style.display = 'flex';
+          
+          setTimeout(() => {
+            html2canvas(backCard, {
+              useCORS: true,
+              allowTaint: true,
+              scale: 3,
+              backgroundColor: null,
+              logging: false,
+              width: 400,
+              height: 240
+            }).then(backCanvas => {
+              // Create a combined canvas
+              const combinedCanvas = document.createElement('canvas');
+              const ctx = combinedCanvas.getContext('2d');
+              
+              // Set combined canvas dimensions (side by side with gap)
+              const cardWidth = 400 * 3; // Scale factor
+              const cardHeight = 240 * 3; // Scale factor
+              const gap = 80; // Gap between cards
+              combinedCanvas.width = (cardWidth * 2) + gap;
+              combinedCanvas.height = cardHeight + 80; // Extra height for title and spacing
+              
+              // Fill background with white
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+              
+              // Add title
+              ctx.fillStyle = '#1e3a8a';
+              ctx.font = 'bold 44px Inter, Arial, sans-serif';
+              ctx.textAlign = 'center';
+              ctx.fillText('Bahati Bakari Zuberi - Professional Business Card', combinedCanvas.width / 2, 50);
+              
+              // Draw front card on the left (fix mirroring by ensuring it's not flipped)
+              ctx.save();
+              ctx.drawImage(frontCanvas, 0, 80);
+              ctx.restore();
+              
+              // Draw back card on the right
+              ctx.drawImage(backCanvas, cardWidth + gap, 80);
+              
+              // Add subtle shadow/border effect around each card
+              ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+              ctx.shadowBlur = 10;
+              ctx.shadowOffsetX = 0;
+              ctx.shadowOffsetY = 5;
+              
+              // Draw subtle borders
+              ctx.strokeStyle = '#e5e7eb';
+              ctx.lineWidth = 2;
+              ctx.strokeRect(0, 80, cardWidth, cardHeight);
+              ctx.strokeRect(cardWidth + gap, 80, cardWidth, cardHeight);
+              
+              // Reset shadow
+              ctx.shadowColor = 'transparent';
+              ctx.shadowBlur = 0;
+              ctx.shadowOffsetX = 0;
+              ctx.shadowOffsetY = 0;
+              
+              // Convert to image and download
+              const combinedImage = combinedCanvas.toDataURL("image/png", 1.0);
+              const link = document.createElement("a");
+              link.href = combinedImage;
+              link.download = "Bahati_Bakari_Zuberi_Business_Card_Complete.png";
+              link.click();
+              
+              showStatus("Complete business card downloaded successfully!");
+              
+              // Restore original state
+              card.style.transform = '';
+              frontCard.style.transform = '';
+              backCard.style.transform = '';
+              frontCard.style.display = '';
+              backCard.style.display = '';
+              
+              if (isFlipped) {
+                card.classList.add('flipped');
+              } else {
+                card.classList.remove('flipped');
+              }
+            }).catch(error => {
+              console.error('Error generating back card:', error);
+              showStatus("Error downloading business card. Please try again.");
+              
+              // Restore original state on error
+              card.style.transform = '';
+              frontCard.style.transform = '';
+              backCard.style.transform = '';
+              frontCard.style.display = '';
+              backCard.style.display = '';
+              if (isFlipped) {
+                card.classList.add('flipped');
+              }
+            });
+          }, 600);
+        }).catch(error => {
+          console.error('Error generating front card:', error);
+          showStatus("Error downloading business card. Please try again.");
+          
+          // Restore original state on error
+          card.style.transform = '';
+          frontCard.style.transform = '';
+          backCard.style.transform = '';
+          frontCard.style.display = '';
+          backCard.style.display = '';
+          if (isFlipped) {
+            card.classList.add('flipped');
+          }
+        });
+      }, 100);
+    }
+
+    // Contact information object
+    const contactInfo = {
+      firstName: 'Bahati Bakari',
+      lastName: 'Zuberi',
+      title: 'Acting Assistant Director Research Innovation and ICT skills development',
+      organization: 'Ministry of Communication and Information Technology',
+      email: 'bahati.zuberi@mawasiliano.go.tz',
+      phone: '+255655349625',
+      phone2: 'bahatizuberi@gmail.com',
+      address: {
+        street: 'Mtumba Government City, 9 Mawasiliano Street',
+        poBox: 'P.O. BOX 677',
+        city: 'Dodoma',
+        postalCode: '40470',
+        country: 'Tanzania'
+      }
+    };
+
+    // Function to generate vCard
+    function generateVCard(contact) {
+      const vCard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${contact.firstName} ${contact.lastName}`,
+        `N:${contact.lastName};${contact.firstName};;;`,
+        `TITLE:${contact.title}`,
+        `ORG:${contact.organization}`,
+        `EMAIL;TYPE=WORK:${contact.email}`,
+        `TEL;TYPE=WORK:${contact.phone}`,
+        `TEL;TYPE=CELL:${contact.phone2}`,
+        `ADR;TYPE=WORK:;;${contact.address.street};${contact.address.city};;${contact.address.postalCode};${contact.address.country}`,
+        `X-ADDRESS-LINE1:${contact.address.street}`,
+        `X-ADDRESS-LINE2:${contact.address.poBox}`,
+        `NOTE:${contact.title} at ${contact.organization}, United Republic of Tanzania`,
+        'END:VCARD'
+      ].join('\n');
+      
+      return vCard;
+    }
+
+    // Function to download vCard
+    function downloadVCard() {
+      const vCardData = generateVCard(contactInfo);
+      const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
+      const url = window.URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Bahati_Bakari_Zuberi_Contact.vcf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      showStatus("Contact saved successfully! Check your downloads folder.");
+    }
+
+    // Add event listeners when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add flip button functionality
+      const flipBtn = document.getElementById('flip-btn');
+      if (flipBtn) {
+        flipBtn.addEventListener('click', flipCard);
+      }
+      
+      // Add download button functionality
+      const downloadBtn = document.getElementById('download-btn');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadCard);
+      }
+      
+      // Add contact button functionality
+      const contactBtn = document.getElementById('contact-btn');
+      if (contactBtn) {
+        contactBtn.addEventListener('click', downloadVCard);
+      }
+    });
+
+    // Auto-download on page load (original behavior)
+    window.onload = function() {
+      // Small delay to ensure fonts and images are loaded
+      setTimeout(() => {
+        downloadCard();
+      }, 1000);
+    };
+  </script>
+</body>
+</html>
